@@ -131,6 +131,12 @@ export default function Home() {
   }, [episodes]);
 
   const liveCount = anime.filter((item) => item.status === "live").length;
+  const stats = [
+    { label: "Titles", value: titles.length, icon: BookOpen },
+    { label: "Anime", value: anime.length, icon: Tv },
+    { label: "Arcs", value: arcs.length, icon: Sparkles },
+    { label: "Episodes", value: episodes.length, icon: Play },
+  ];
 
   return (
     <main className="min-h-screen bg-[#08090c] text-white">
@@ -179,21 +185,13 @@ export default function Home() {
         </div>
         <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-violet-500/20 via-white/[0.04] to-cyan-400/10 p-6">
           <div className="grid grid-cols-2 gap-3">
-            {[
-              ["Titles", titles.length, BookOpen],
-              ["Anime", anime.length, Tv],
-              ["Arcs", arcs.length, Sparkles],
-              ["Episodes", episodes.length, Play],
-            ].map(([label, value, Icon]) => {
-              const I = Icon as typeof BookOpen;
-              return (
-                <div key={String(label)} className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                  <I size={18} className="text-violet-300" />
-                  <p className="mt-5 text-2xl font-black">{value}</p>
-                  <p className="text-xs text-white/45">{label}</p>
-                </div>
-              );
-            })}
+            {stats.map(({ label, value, icon: Icon }) => (
+              <div key={label} className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                <Icon size={18} className="text-violet-300" />
+                <p className="mt-5 text-2xl font-black">{value}</p>
+                <p className="text-xs text-white/45">{label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
